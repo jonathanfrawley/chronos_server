@@ -1,0 +1,6 @@
+Copyright:
+LICENSE.txt holds the licensing information for this project.
+
+Building:
+Use CMake to build it.
+All libraries required are specified in src/CMakeLists.txt.
