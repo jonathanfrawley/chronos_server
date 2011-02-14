@@ -2,9 +2,10 @@
 
 #include <iostream>
 
-ctCommandLineClient::ctCommandLineClient(string senderAddr)
+ctCommandLineClient::ctCommandLineClient(string subAddr, string senderAddr)
 	:
-		m_SenderAddr(senderAddr)
+		m_SenderAddr(senderAddr),
+		m_SubAddr(subAddr)
 {
 }
 
@@ -20,10 +21,13 @@ bool ctCommandLineClient::init()
 
 	m_Sender = CT_NEW socket_t(*m_Context, ZMQ_REQ);
 
+	m_Subscriber = CT_NEW socket_t(*m_Context, ZMQ_SUB);
+	m_Subscriber->setsockopt (ZMQ_SUBSCRIBE, 0, 0); //Subscribe to all messages? Maybe make more efficient.
+	
 	try
 	{
-	//	m_Sender->connect (m_SenderAddr.c_str());
-		m_Sender->connect ("tcp://localhost:5555");
+		m_Sender->connect (m_SenderAddr.c_str());
+		m_Subscriber->connect (m_SubAddr.c_str());
 	}
 	catch(exception e)
 	{
@@ -72,29 +76,59 @@ void ctCommandLineClient::sendProtocol(char protocol)
 
 	try
 	{
-		m_Sender->send (*message);
+		m_Sender->send (*message, ZMQ_NOBLOCK);
 	}
 	catch(exception& e)
 	{
 		cout<<e.what()<<endl;
-		assert(0);
+//		assert(0);	
+		delete message;
 	}
 	delete message;
 
-	message_t reply(CT_MAX_PACKET_SIZE);
-	int rc = m_Sender->recv(&reply);
-	if(reply.size() == 0)
+	message_t* reply = CT_NEW message_t(CT_MAX_PACKET_SIZE);
+	int rc = m_Sender->recv(reply);
+
+	if(reply->size() == 0)
 	{
 		//A null packet received
-		//assert(0 && "null packet received");
+		assert(0 && "null packet received");
 		return;
 	}
-	printf ("Received reply : [%s]\n",
-			(char *) (reply.data()));
+//	printf ("Received reply : [%s]\n",
+//			(char *) (reply->data()));
 
+	printf ("%s\n",
+			(char *) (reply->data()));
+
+}
+
+void ctCommandLineClient::listenToPublisher()
+{
+	message_t* message = CT_NEW message_t();
+
+	//TODO:Set this to a sensible value 
+	for(int i = 0 ; i < 1000000 ; i++)
+	{
+		m_Subscriber->recv(message, ZMQ_NOBLOCK);
+	//	m_Subscriber->recv(message);
+		if(message->size() == 0)
+		{
+			//A null packet received
+			continue;
+		}
+		printf ("%s\n",
+				(char *) (message->data()));
+		return;
+	}
+	
 }
 
 void ctCommandLineClient::mainLoop()
 {
 	sendProtocol((char)CT_START);
+
+	sendProtocol((char)CT_CHECK);
+
+	sendProtocol((char)CT_STATE);
 }

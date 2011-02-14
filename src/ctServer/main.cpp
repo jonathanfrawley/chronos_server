@@ -5,7 +5,7 @@
 #include <ctServer/ctServer.h>
 
 int main () {
-	ctServer* server = new ctServer("tcp://*:5556", "tcp://*:10000");
+	ctServer* server = new ctServer("tcp://*:10001", "tcp://*:10000");
 	server->init();
 	while(true)
 	{

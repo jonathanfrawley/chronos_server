@@ -7,9 +7,10 @@ const int CT_N_SERVER_THREADS = 1;
 const int CT_N_CLIENT_THREADS = 1;
 
 //Defines protocol numbers
-#define CT_START 0
+#define CT_START 'b'
+#define CT_CHECK 'c'
+#define CT_STATE 's'
 #define CT_PAUSE 1
 #define CT_END 2
-#define CT_CHECK 3
 
 #endif   // CTCONSTANTS_H

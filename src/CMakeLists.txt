@@ -6,9 +6,9 @@ set(CMAKE_CXX_FLAGS "-g -Wall")
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 #FIND_PACKAGE(Boost COMPONENTS program_options unit_test_framework system filesystem thread REQUIRED)
-#FIND_PACKAGE(Boost COMPONENTS program_options system filesystem thread REQUIRED)
+FIND_PACKAGE(Boost COMPONENTS program_options system filesystem thread date_time REQUIRED)
 
-SET(libCtThirdParty zmq)
+SET(libCtThirdParty zmq ${Boost_DATE_TIME_LIBRARY} ${Boost_PROGRAM_OPTIONS_LIBRARY})
 
 #FILE(GLOB ct_core_cpp "./ctCore/*.cpp")
 #ADD_LIBRARY(libCtCore ${ct_core_cpp})

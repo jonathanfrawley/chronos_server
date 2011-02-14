@@ -20,7 +20,7 @@ using namespace zmq;
 class ctCommandLineClient
 {
 	public:
-		ctCommandLineClient(string senderAddr);
+		ctCommandLineClient(string subAddr, string senderAddr);
 
 		virtual ~ctCommandLineClient();
 
@@ -31,12 +31,16 @@ class ctCommandLineClient
 		void mainLoop();
 
 		void sendProtocol(char protocol);
+
+		void listenToPublisher();
 		
 	protected:
 		context_t* m_Context;
 		socket_t* m_Sender;
+		socket_t* m_Subscriber;
 
 		string m_SenderAddr;
+		string m_SubAddr;
 	private:
 };
 
