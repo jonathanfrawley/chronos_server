@@ -102,7 +102,8 @@ void ctServer::handleIncoming()
 	message_t request;
 
 	//  Wait for next request from client
-	m_Responder->recv (&request, ZMQ_NOBLOCK);
+//	m_Responder->recv (&request, ZMQ_NOBLOCK);
+	m_Responder->recv (&request);
 //	printf ("Received request: [%c]\n",
 //			((char *) request.data ())[0] );
 
@@ -164,4 +165,5 @@ void ctServer::tick()
 	handleIncoming();
 	//checkForTimerUp();
 	publishOutgoing();
+	sleep(1);
 }

@@ -107,8 +107,20 @@ void ctCommandLineClient::listenToPublisher()
 {
 	message_t* message = CT_NEW message_t();
 
+	/*
+	m_Subscriber->recv(message, ZMQ_NOBLOCK);
+	if(message->size() == 0)
+	{
+		//A null packet received
+		return;
+	}
+	printf ("%s\n",
+			(char *) (message->data()));
+	return;
+	*/
+
 	//TODO:Set this to a sensible value 
-	for(int i = 0 ; i < 1000000 ; i++)
+	for(int i = 0 ; i < 10000000 ; i++)
 	{
 		m_Subscriber->recv(message, ZMQ_NOBLOCK);
 	//	m_Subscriber->recv(message);
