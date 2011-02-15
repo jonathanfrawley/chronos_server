@@ -4,3 +4,7 @@ LICENSE.txt holds the licensing information for this project.
 Building:
 Use CMake to build it.
 All libraries required are specified in src/CMakeLists.txt.
+
+Performance:
+Around 1% CPU on my desktop, I know it could be smaller, but not using zeromq methinks. 
+Investigae using events for networking for maximum damage. 

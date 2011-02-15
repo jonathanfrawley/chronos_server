@@ -2,6 +2,8 @@
 #define  CTSERVER_H
 
 #include <string>
+#include <time.h>
+
 #include <zmq.hpp>
 #include "boost/date_time/gregorian/gregorian.hpp"
 #include "boost/date_time/posix_time/posix_time.hpp"

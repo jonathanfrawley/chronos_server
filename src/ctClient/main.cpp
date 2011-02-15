@@ -17,15 +17,25 @@ int main (int argc, char** argv) {
 	char method;
 	//Program options
 	namespace po = boost::program_options;
-	po::options_description desc;
+	po::options_description desc("Allowed Options");
 	desc.add_options()
-		("-m", po::value<char>(), "\'b\' to start timer, \'s\' for state of server, and \'c\' to check the amount of time left.")
+		("help", "produce help message")
+		("m", po::value<char>(), "mode. \'b\' to start timer, \'s\' for state of server, and \'c\' to check the amount of time left.")
 		;
+
 	po::variables_map vmCmdLine;
 	store(po::parse_command_line(argc, argv, desc), vmCmdLine);
-	if (vmCmdLine.count("-m"))
+	po::notify(vmCmdLine);
+
+	if (vmCmdLine.count("help")) 
 	{
-		method = vmCmdLine["-m"].as< char >();
+		cout << desc << "\n";
+		return 1;
+	}
+
+	if (vmCmdLine.count("m"))
+	{
+		method = vmCmdLine["m"].as< char >();
 		if(method == 'c')
 		{
 			client->listenToPublisher();

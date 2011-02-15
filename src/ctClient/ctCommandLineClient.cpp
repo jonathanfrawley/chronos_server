@@ -103,7 +103,46 @@ void ctCommandLineClient::sendProtocol(char protocol)
 
 }
 
-void ctCommandLineClient::listenToPublisher()
+//Determines whether server is up by trying to send a req
+bool ctCommandLineClient::isServerUp()
+{
+	char buf[CT_MAX_PACKET_SIZE];
+	buf[0] = 's';
+	message_t* message = CT_NEW message_t(buf, CT_MAX_PACKET_SIZE, NULL);
+
+	try
+	{
+		m_Sender->send (*message, ZMQ_NOBLOCK);
+	}
+	catch(exception& e)
+	{
+		cout<<e.what()<<endl;
+		delete message;
+		assert(0);	
+	}
+	delete message;
+
+	int nRetries = 2;
+	for(int i = 0 ; i < nRetries ; i++)
+	{
+		message_t* reply = CT_NEW message_t(CT_MAX_PACKET_SIZE);
+		int rc = m_Sender->recv(reply, ZMQ_NOBLOCK);
+
+		if(reply->size() == 0)
+		{
+			ct_delay(10);
+			continue;
+		}
+		else
+		{
+			ct_delay(10*(nRetries-i));
+			return true;
+		}
+	}
+	return false;
+}
+
+bool ctCommandLineClient::listenToPublisher()
 {
 	message_t* message = CT_NEW message_t();
 
@@ -119,6 +158,24 @@ void ctCommandLineClient::listenToPublisher()
 	return;
 	*/
 
+	if(isServerUp())
+	{
+		m_Subscriber->recv(message);
+		if(message->size() == 0)
+		{
+			//A null packet received
+			return false;
+		}
+		printf ("%s\n",
+				(char *) (message->data()));
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
+	/*
 	//TODO:Set this to a sensible value 
 	for(int i = 0 ; i < 10000000 ; i++)
 	{
@@ -133,7 +190,7 @@ void ctCommandLineClient::listenToPublisher()
 				(char *) (message->data()));
 		return;
 	}
-	
+	*/
 }
 
 void ctCommandLineClient::mainLoop()

@@ -4,6 +4,7 @@
 #include <string>
 #include <stdio.h>
 #include <zmq.hpp>
+#include <time.h>
 
 #include <ctCore/ctCore.h>
 #include <ctCore/ctConstants.h>
@@ -32,7 +33,9 @@ class ctCommandLineClient
 
 		void sendProtocol(char protocol);
 
-		void listenToPublisher();
+		bool isServerUp();
+
+		bool listenToPublisher();
 		
 	protected:
 		context_t* m_Context;

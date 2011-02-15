@@ -24,7 +24,8 @@ void* publishThreadFunc(void* threadBundle)
 	while(1)
 	{
 		bundle->server->publishOutgoing();
-		sleep(1);
+//		sleep(1);
+		ct_delay(400);
 	}
 }
 

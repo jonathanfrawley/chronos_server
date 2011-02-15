@@ -7,7 +7,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 #FIND_PACKAGE(Boost COMPONENTS program_options unit_test_framework system filesystem thread REQUIRED)
 FIND_PACKAGE(Boost COMPONENTS program_options system filesystem thread date_time REQUIRED)
-FIND_PACKAGE(Qt4 REQUIRED)
+#FIND_PACKAGE(Qt4 REQUIRED)
 
 SET(libCtThirdParty zmq pthread ${Boost_DATE_TIME_LIBRARY} ${Boost_PROGRAM_OPTIONS_LIBRARY})
 
