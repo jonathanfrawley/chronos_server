@@ -11,8 +11,9 @@ ctCommandLineClient::ctCommandLineClient(string subAddr, string senderAddr)
 
 ctCommandLineClient::~ctCommandLineClient()
 {
-	CT_SAFE_DELETE(m_Context);
 	CT_SAFE_DELETE(m_Sender);
+	CT_SAFE_DELETE(m_Subscriber);
+	CT_SAFE_DELETE(m_Context);
 }
 
 bool ctCommandLineClient::init()
