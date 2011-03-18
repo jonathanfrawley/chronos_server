@@ -4,6 +4,8 @@
 #include <string>
 #include <time.h>
 
+#include <pthread.h>
+
 //#include <zmq.hpp>
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,6 +19,7 @@
 #include <arpa/inet.h>
 #include <sys/wait.h>
 #include <signal.h>
+
 
 #include "boost/date_time/gregorian/gregorian.hpp"
 #include "boost/date_time/posix_time/posix_time.hpp"
@@ -123,5 +126,30 @@ class ctServer
 	private:
 };
 
+typedef struct _serverThreadBundle
+{
+	int fd;
+	ctServer* server;
+} serverThreadBundle;
+
+inline void* launchHandleProtocolFunction(void* bundle)
+{
+	serverThreadBundle* castBundle;
+    castBundle = (serverThreadBundle*)bundle;
+	ctServer* server = castBundle->server;
+
+	char buf[0];
+	if( recv(castBundle->fd, buf, 1, 0) == -1 )
+	{
+		perror("receive");
+	}
+	int protocol = (int)buf[0];
+
+	cout<<"Handling protocol : "<<protocol<<endl;
+
+	server->handleProtocol(protocol, castBundle->fd);
+//    return ((Server *)obj)->processRequest();
+	return NULL;
+}
 
 #endif   // CTSERVER_H

@@ -34,7 +34,7 @@ bool ctCommandLineClient::init()
 
         if (connect(sockfd, p->ai_addr, p->ai_addrlen) == -1) {
             close(sockfd);
-            perror("client: connect");
+//            perror("client: connect");
             continue;
         }
 
@@ -42,7 +42,7 @@ bool ctCommandLineClient::init()
     }
 
     if (p == NULL) {
-        fprintf(stderr, "client: failed to connect\n");
+ //       fprintf(stderr, "client: failed to connect\n");
         return false;
     }
 

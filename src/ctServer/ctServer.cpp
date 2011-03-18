@@ -296,6 +296,18 @@ void ctServer::tick()
 			s, sizeof s);
 	printf("server: got connection from %s\n", s);
 
+	//TODO : Change multiprocess to multithreaded and have timer and state as mutexed variables
+	serverThreadBundle bundle;
+	bundle.fd = new_fd;
+	bundle.server = this;
+
+	pthread_t t;
+	pthread_create(&t, 0, launchHandleProtocolFunction, (void*)&bundle);
+
+	pthread_join(t, NULL);
+
+
+/*
 	if (!fork()) { // this is the child process
 		close(sockfd); // child doesn't need the listener
 
@@ -308,15 +320,11 @@ void ctServer::tick()
 		printf("received : <%c> \n", buf[0]);
 		int protocol = (int)(buf[0]);
 		handleProtocol(protocol, new_fd);
-		//TODO : Change multiprocess to multithreaded and have timer and state as mutexed variables
 
-		/*
-		if (send(new_fd, "Hello, world!", 13, 0) == -1)
-			perror("send");
-			*/
 		close(new_fd);
 		exit(0);
 	}
+*/
 	close(new_fd);  // parent doesn't need this
 
 }
