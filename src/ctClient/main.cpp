@@ -10,8 +10,9 @@
 
 using namespace std;
 
-int main (int argc, char** argv) {
-	ctCommandLineClient* client = new ctCommandLineClient("tcp://localhost:10001",string("tcp://localhost:10000"));
+int main (int argc, char** argv) 
+{
+	ctCommandLineClient* client = new ctCommandLineClient("localhost",string("10000"));
 	client->init();
 
 	char method;
@@ -36,14 +37,7 @@ int main (int argc, char** argv) {
 	if (vmCmdLine.count("m"))
 	{
 		method = vmCmdLine["m"].as< char >();
-		if(method == 'c')
-		{
-			client->listenToPublisher();
-		}
-		else
-		{
-			client->sendProtocol(method);
-		}
+		client->sendProtocol(method);
 	}
 
 //	client->mainLoop();
