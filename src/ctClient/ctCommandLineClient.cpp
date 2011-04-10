@@ -48,7 +48,7 @@ bool ctCommandLineClient::init()
 
     inet_ntop(p->ai_family, get_in_addr((struct sockaddr *)p->ai_addr),
             s, sizeof s);
-    printf("client: connecting to %s\n", s);
+//    printf("client: connecting to %s\n", s);
 
     freeaddrinfo(servinfo); // all done with this structure
 
@@ -72,7 +72,8 @@ void ctCommandLineClient::sendProtocol(char protocol)
 
     buf[numbytes] = '\0';
 
-    printf("client: received '%s'\n",buf);
+//    printf("client: received '%s'\n",buf);
+    printf("%s",buf);
 
     close(sockfd);
 }

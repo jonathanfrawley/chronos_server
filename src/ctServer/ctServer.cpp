@@ -115,9 +115,9 @@ void ctServer::startTimer()
 //	endTime = now + seconds(15);
 	m_EndTime = endTime;
 
-	cout<<"time now is "<<to_simple_string(now)<<endl;
-	cout<<"m_EndTime "<<to_simple_string(m_EndTime)<<endl;
-	cout<<"endtime "<<to_simple_string(endTime)<<endl;
+//	cout<<"time now is "<<to_simple_string(now)<<endl;
+//	cout<<"m_EndTime "<<to_simple_string(m_EndTime)<<endl;
+//	cout<<"endtime "<<to_simple_string(endTime)<<endl;
 }
 
 string ctServer::getRemainingTimeAsString()
@@ -125,9 +125,9 @@ string ctServer::getRemainingTimeAsString()
 	ptime now = second_clock::local_time();
 	time_duration remaining = m_EndTime - now;
 
-	cout<<"time now is "<<to_simple_string(now)<<endl;
-	cout<<"m_EndTime "<<to_simple_string(m_EndTime)<<endl;
-	cout<<"remaining "<<to_simple_string(remaining)<<endl;
+//	cout<<"time now is "<<to_simple_string(now)<<endl;
+//	cout<<"m_EndTime "<<to_simple_string(m_EndTime)<<endl;
+//	cout<<"remaining "<<to_simple_string(remaining)<<endl;
 
 	return to_simple_string(remaining);
 }
@@ -233,7 +233,7 @@ void ctServer::handleProtocol(int protocol, int fd)
 {
 	if(protocol == CT_START)
 	{
-		cout<<"Starting timer.."<<endl;
+//		cout<<"Starting timer.."<<endl;
 		switchState(CT_STATE_Started);
 		startTimer();
 		//  Send reply back to client
@@ -294,7 +294,7 @@ void ctServer::tick()
 	inet_ntop(their_addr.ss_family,
 			get_in_addr((struct sockaddr *)&their_addr),
 			s, sizeof s);
-	printf("server: got connection from %s\n", s);
+//	printf("server: got connection from %s\n", s);
 
 	//TODO : Change multiprocess to multithreaded and have timer and state as mutexed variables
 	serverThreadBundle bundle;

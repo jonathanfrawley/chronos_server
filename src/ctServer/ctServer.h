@@ -145,7 +145,7 @@ inline void* launchHandleProtocolFunction(void* bundle)
 	}
 	int protocol = (int)buf[0];
 
-	cout<<"Handling protocol : "<<protocol<<endl;
+//	cout<<"Handling protocol : "<<protocol<<endl;
 
 	server->handleProtocol(protocol, castBundle->fd);
 //    return ((Server *)obj)->processRequest();
