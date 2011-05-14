@@ -28,3 +28,5 @@ TARGET_LINK_LIBRARIES(ctc ${libCtThirdParty})
 
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/cts DESTINATION bin)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/ctc DESTINATION bin)
+install(FILES ctBash/ctBash DESTINATION bin)
+install(FILES ctBash/ctServer DESTINATION bin)
