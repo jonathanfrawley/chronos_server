@@ -37,4 +37,5 @@ build() {
 	make DESTDIR=${pkgdir} install || return 1
 	mkdir -p ${pkgdir}/etc/rc.d
 	cp $srcdir/chronos_server/src/ctBash/ct-server ${pkgdir}/etc/rc.d/ct-server
+	chmod a+x ${pkgdir}/etc/rc.d/ct-server
 }
