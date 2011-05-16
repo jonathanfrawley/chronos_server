@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo "Task to finish:"
+read task
+
+echo $task >> ~/.tasks
+
 TIME=`ctc --m b`
 tput sc
 ISFINISHED="0"
