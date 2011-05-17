@@ -26,3 +26,8 @@ FILE(GLOB ctc_cpp "./ctClient/*.cpp")
 ADD_EXECUTABLE(ctc ${ctc_cpp})
 #TARGET_LINK_LIBRARIES(ctc libCtCore ${libCtThirdParty})
 TARGET_LINK_LIBRARIES(ctc ${libCtThirdParty})
+
+install_programs(/bin FILES ${CMAKE_CURRENT_BINARY_DIR}/cts)
+install_programs(/bin FILES ${CMAKE_CURRENT_BINARY_DIR}/ctc)
+install_programs(/bin FILES ctBash/ctBash)
+#install_programs(/etc FILES ctBash/ct-server)

@@ -1,7 +1,8 @@
 #!/bin/bash
 
-echo "Enter task to accomplish:"
+echo "Task to finish:"
 read task
+
 echo $task >> ~/.tasks
 
 TIME=`ctc --m b`
