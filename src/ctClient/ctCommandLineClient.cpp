@@ -73,7 +73,14 @@ void ctCommandLineClient::sendProtocol(char protocol)
     buf[numbytes] = '\0';
 
 //    printf("client: received '%s'\n",buf);
-    printf("%s",buf);
+	if(buf[0]=='n')
+	{
+		cout<<"";
+	}
+	else
+	{
+		printf("%s",buf);
+	}
 
     close(sockfd);
 }

@@ -1,8 +1,14 @@
 #!/bin/bash
 
+echo "Enter task to accomplish:"
+read task
+echo $task >> ~/.tasks
+
 TIME=`ctc --m b`
 tput sc
 ISFINISHED="0"
+
+
 while [ 1 ]
 do
 	sleep 1
