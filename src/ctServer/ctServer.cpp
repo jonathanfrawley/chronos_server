@@ -75,7 +75,7 @@ void ctServer::startTimer()
 	ptime now = second_clock::local_time();
 	m_StartTime = now;
 	ptime endTime = second_clock::local_time();
-	endTime = now + minutes(25);
+	endTime = now + hours(1) + minutes(30);
 	m_EndTime = endTime;
 }
 
