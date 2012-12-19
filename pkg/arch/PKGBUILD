@@ -5,10 +5,10 @@ pkgver=0.2
 pkgrel=1
 pkgdesc="A pomodoro timer for people who use xmonad and xmobar."
 arch=('i686' 'x86_64')
-url=""
+url="https://github.com/df3n5/chronos_server"
 license=('GPL')
 groups=()
-depends=()
+depends=('boost' 'supervisord')
 makedepends=('cmake' 'boost' 'git')
 optdepends=()
 provides=()
@@ -16,7 +16,7 @@ conflicts=()
 replaces=()
 backup=()
 options=()
-install=
+install=cts.install
 changelog=
 source=()
 noextract=()
@@ -38,4 +38,7 @@ build() {
 	mkdir -p ${pkgdir}/etc/rc.d
 	cp $srcdir/chronos_server/src/ctBash/ct-server ${pkgdir}/etc/rc.d/ct-server
 	chmod a+x ${pkgdir}/etc/rc.d/ct-server
+
+	mkdir -p ${pkgdir}/etc/supervisord
+    cp $srcdir/chronos_server/conf/supervisord.conf ${pkgdir}/etc/supervisor.d/cts.conf
 }

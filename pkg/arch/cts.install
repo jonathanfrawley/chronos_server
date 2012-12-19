@@ -1,0 +1,4 @@
+post_install() {
+    supervisorctl stop cts
+    supervisorctl start cts
+}
