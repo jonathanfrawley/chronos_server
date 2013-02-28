@@ -1,7 +1,7 @@
 # Maintainer: Jonathan Frawley <jonathanfrawley@gmail.com>
 
 pkgname=cts-git
-pkgver=0.2
+pkgver=0.3
 pkgrel=1
 pkgdesc="A pomodoro timer for people who use xmonad and xmobar."
 arch=('i686' 'x86_64')
@@ -39,8 +39,7 @@ build() {
 	cp $srcdir/chronos_server/src/ctBash/ct-server ${pkgdir}/etc/rc.d/ct-server
 	chmod a+x ${pkgdir}/etc/rc.d/ct-server
 
-	mkdir -p ${pkgdir}/etc/supervisor.d
-    cp $srcdir/chronos_server/conf/supervisord.conf ${pkgdir}/etc/supervisor.d/cts.conf
+    mkdir -p ${pkgdir}/etc/systemd/system
 
-	cp $srcdir/chronos_server/cts.service /etc/systemd/system/cts.service
+	cp $srcdir/chronos_server/cts.service ${pkgdir}/etc/systemd/system/cts.service
 }

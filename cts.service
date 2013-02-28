@@ -1,10 +1,8 @@
 [Unit]
 Description=Chronos server daemon
+
 [Service]
-ExecStart=/etc/rc.d/ct-server start
-ExecStop=/etc/rc.d/ct-server stop
-PIDFile=/var/lock/subsys/cts
-TimeoutSec=0
-RemainAfterExit=yes
+ExecStart=/usr/bin/cts
+
 [Install]
 WantedBy=multi-user.target
