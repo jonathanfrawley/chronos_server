@@ -1,4 +1,3 @@
 post_install() {
-    supervisorctl stop cts
-    supervisorctl start cts
+    systemctl enable cts.service
 }

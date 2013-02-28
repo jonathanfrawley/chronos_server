@@ -8,7 +8,7 @@ arch=('i686' 'x86_64')
 url="https://github.com/df3n5/chronos_server"
 license=('GPL')
 groups=()
-depends=('boost' 'supervisord')
+depends=('boost' 'supervisor')
 makedepends=('cmake' 'boost' 'git')
 optdepends=()
 provides=()
@@ -39,6 +39,8 @@ build() {
 	cp $srcdir/chronos_server/src/ctBash/ct-server ${pkgdir}/etc/rc.d/ct-server
 	chmod a+x ${pkgdir}/etc/rc.d/ct-server
 
-	mkdir -p ${pkgdir}/etc/supervisord
+	mkdir -p ${pkgdir}/etc/supervisor.d
     cp $srcdir/chronos_server/conf/supervisord.conf ${pkgdir}/etc/supervisor.d/cts.conf
+
+	cp $srcdir/chronos_server/cts.service /etc/systemd/system/cts.service
 }
